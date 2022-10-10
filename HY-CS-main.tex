@@ -18,7 +18,7 @@
 %%      algorithms-track-2020 = Algorithms study track
 %%      networking-track-2020 = Networking study track
 
-\documentclass[finnish,twoside,censored,tkt,software-track-2020]{HYthesisML} 
+\documentclass[finnish,twoside,censored,censored]{HYthesisML} 
 
 
 % If wanted, open new chapters only at right page.
@@ -31,7 +31,7 @@
 %% REFERENCES
 %% Some notes on bibliography usage and options:
 %% natbib -> you can use, e.g., \citep{} or \parencite{} for (Einstein, 1905); with APA \cite -> Einstein, 1905 without ()
-%% maxcitenames=2 -> only 2 author names in text citations, if more -> et al. is used
+%%\maxcitenames=2 -> only 2 author names in text citations, if more -> et al. is used
 %% maxbibnames=99 as no great need to suppress the biliography list in a thesis
 %% for more information see biblatex package documentation, e.g., from https://ctan.org/pkg/biblatex 
 
@@ -80,6 +80,8 @@
 % \showboxbreadth=50 
 % \showboxdepth=50
 
+% My own math shorthands
+\newcommand{\indep}{\perp \!\!\! \perp}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -87,16 +89,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Set up personal information for the title page and the abstract form.
 %% Replace parameters with your information.
-\title{Title}
+\title{Bayes-verkon rakenteen oppimisen sovellukset vakuutusdatassa}
 
 \author{Simo Levanto}
 \date{\today}
 
 % Set supervisors, use the titles according to the thesis language
 % in English Prof. or Dr., or in Finnish toht. or tri or FT, TkT, Ph.D. or in Swedish... 
-\supervisors{Arto Klami}
+\supervisors{apulaisprofessori Arto Klami}
 
-\keywords{algorithms, data structures}
+\keywords{Bayesian networks, structure learning, machine learning, graphical models}
 \additionalinformation{\translate{\track}}
 
 %% For seminar reports:
@@ -109,8 +111,11 @@
 %% about three levels in the path; each path requires a new line.
 
 \classification{\protect{\ \\
-\  General and reference $\rightarrow$ Document types  $\rightarrow$ Surveys and overviews\  \\
-\  Applied computing  $\rightarrow$ Document management and text processing  $\rightarrow$ Document management $\rightarrow$ Text editing
+Computing methodologies $\rightarrow$ \
+Machine learning $\rightarrow$  \
+Machine learning approaches $\rightarrow$  \\
+Learning in probabilistic graphical models $\rightarrow$  \
+Bayesian network models
 }}
 
 %% If you want to quote someone special. You can comment this line out and there will be nothing on the document.
@@ -176,11 +181,11 @@
 %% Alternatively, \input is a more lower level macro 
 %% which simply inputs the content of the given file like it was copy&pasted there manually.
 
-\include{Ch.10_Introduction}
-\include{Ch.20_Methods}
-\include{Ch.30_Results}
-\include{Ch.40_Discussion}
-\include{Ch.50_Conclusions}
+\include{Ch.10_Johdanto}
+\include{Ch.20_Bayes-verkot}
+\include{Ch.30_Sovelluskohteet}
+\include{Ch.40_Ohjelmistot}
+\include{Ch.50_Johtopaatokset}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\cleardoublepage                          %fixes the position of bibliography in bookmarks
@@ -193,14 +198,14 @@
 \begin{appendices}
 
 %% A sample Appendix
-\include{Ch.90_Appendix_1}
+%\include{Ch.90_Appendix_1}
 %% another appendix
-\include{instructions/instructions_english}
+%\include{instructions/instructions_english}
 %% yet another appendix
 \include{instructions/instructions_finnish}
 
 % BSc instructions
-%\include{instructions/bsc_finnish_contents}
+\include{instructions/bsc_finnish_contents}
 %\include{instructions/bsc_english_contents}
 
 

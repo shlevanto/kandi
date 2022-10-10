@@ -1,0 +1,48 @@
+\chapter{Bayes-verkot\label{bayes}}
+
+\section{Graafiset mallit}
+Graafinen malli (\emph{graphical model}) yhdistelee tilastotiedettä, todennäköisyysteoriaa ja graafiteoriaa, ja kuvaa näiden avulla satunnaismuuttujia ja näiden välisiä yhteyksiä graafeina \citep{jordan_graphical_2004}. Sinällään graafisen mallin käsite ei ole kovin tarkkarajainen, vaan sillä voidaan tarkoittaa aineiston kuvaamista graafimuodossa myös ilman, että graafin muodostamiseen on käytetty laskentaa. \citet{ramsahai_connecting_2020} jaottelee graafiset mallit sellaisiin, jotka on muodostetettu kvalitatiivisesti ilman laskentaa ja sellaisiin, jotka on muodostettu kvantitatiivisesti laskennan avulla. 
+
+\citet{jordan_graphical_2004} puolestaan määrittelee probabilistisen graafisen mallin sellaiseksi, jossa graafin solmut kuvaavat satunnaismuuttujia ja kaaret näiden välisiä riippuvuuksia. Tällaista graafista mallia kutsutaan \emph{Bayes-verkoksi} (\texttt{Bayesian network}), kun mallissa käytetään suunnattua syklitöntä graafia ja vastaavasti Markov-verkoksi, jos kaaret ovat suuntaamattomia \citep{ruggeri_bayesian_2008}. Ensimmäisenä Bayes-verkkojen käyttömahdollisuuksia on esittänyt \citet{pearl1986fusion}.
+
+\section{Bayes-verkko}
+Bayes-verkko on pari 
+$$
+    B = \langle G, \Theta \rangle
+$$
+jossa 
+$$
+    G = \{V, E\}, V = \{X_1, X_2,\ldots X_n\}
+$$ 
+eli graafin solmut kuvaavat satunnaismuuttujia ja kaarien joukko $E$ kuvaa näiden välisiä suoria riippuvuuksia. Määritelmälllisesti Bayes-verkossa kukin muuttuja on riippumaton kaikista niistä muuttujista, jotka eivät ole tämän muuttujan jälkeläisiä kun tälle muuttujalle on määritelty verkossa sen edeltäjien muodostama joukko. Parametrijoukko $\Theta$ koostuu satunnaismuuttujien $X_i$ parametreista 
+$$
+    \theta_{x_i|\pi_i} = P_B(x_i|\pi_i)
+$$ 
+eli ehdollisista todennäköisyyksistätapaukselle $x_i$ ehtonaan muuttujan $X_i$ edeltäjien joukko verkossa $G$ \citep{ruggeri_bayesian_2008, myllymaki_bayes-verkkojen_1998}. Joukon $\Theta$ alkiot voidaan esittää \emph{ehdollisen todennäköisyyden taulukoina}  (\texttt{conditional probability table, CPT}) kaikille niille tapauksille, joita muuttujan edeltäjiensä ehdoilla voi saada \citep{zhang_brief_2019}.
+
+<tähän tulee yksinkertainen esimerkki kuvan kanssa>
+
+Bayes-verkko kuvaa siis satunnaismuuttujajoukon yhteistodennäköisyysjakaumaa ja siihen kuuluvien muuttujien välisiä riippuvuussuhteita. Vaikka Bayes-verkossa näitä riippuvuuksia kuvataan suunnattuina kaarina, painottavat mm. \citet{ruggeri_bayesian_2008, myllymaki_bayes-verkkojen_1998} että Bayes-verkon kaaret eivät kuvaa muuttujien välisiä kausaalisuhteita. Kausaalisuhteiden päätteleminen tai oppiminen datasta on mahdollista ja muodostaa oman mielenkiintoisen aihekokonaisuutensa. \citet{vowels_dya_2022} tarkastelee tuoreessa katsauksessaan tähän soveltuvia menetelmiä, mutta joudun valitettavasti rajaamaan niiden tarkastelun tämän tutkielman ulkopuolelle.
+
+\section{Bayes-verkkojen pisteyttäminen funktioiden avulla}
+BIC = MDL
+BDeu
+Kehittyneempiäkin kuten esim. K2 \citep{behjati_improved_2020}.
+
+\section{Bayes-verkon rakenteen oppiminen}
+Bayes-verkkojen käytännön sovelluksissa verkon rakenne on usein tuntematon \citep{ruggeri_bayesian_2008}, eli muuttujien välisiä yhteyksiä ei tiedetä. Tällöin mielenkiintoiseksi tehtäväksi muodostuu verkon rakenteen päätteleminen tai laskeminen datan pohjalta. Tämä Bayes-verkon rakenteen oppiminen on kompleksinen, todetusti NP-kova ongelma \citep{chickering_large-sample_2004}. Kompleksisuus voidaan päätellä siitä, että jo yksinkertaisten dikotomisten muuttujien muodostamassa Bayes-verkossa on $2^v$ mahdollista rakennetta, kun $v$ on satunnaismuuttujien määrä ja muuttujat ovat kaikki jollakin tavoin keskenään riippuvaisia. Nähdään siis, että kaikkien mahdollisten verkkojen laskeminen johtaa pahimmassa tapauksessa eksponentiaalisesti kasvavaan joukkoon. Ongelman kompleksisuus tekeekin siitä erityisen mielenkiintoisen, koska sen ratkaiseminen vaatii sopivaa tasapainottelua tarkkuuden ja laskentatehovaatimusten välillä.
+
+Rakenteen oppimista voidaan lähestyä kahdella tavalla: \emph{pisteyttämällä} (\texttt{score based}),  \emph{rajoitepohjaisesti} (\texttt{constraint based}) \citep{ramsahai_connecting_2020, scutari_learning_2010} tai yhdistämällä näitä esim. \citep{li_hybrid_2018}. Pisteyttämisessä etsitään eri vaihtoehtojen joukosta sellainen Bayes-verkko, jonka sopivuutta kuvaava funktio saa parhaan mahdollisen arvon. Rajoitepohjaisessa lähestymistavassa puolestaan solmuissa oleville muuttujille ajetaan tilastollisia testejä (esim. $\chi^2$), joiden avulla arvioidaan muuttujien riippumattomuutta ja näin pyritään aineistoon sopivin verkko \citep{ramsahai_connecting_2020, scutari_learning_2010}. 
+
+Bayes-verkon rakennetta voidaan myös täydentää kvalitatiivisesti käyttämällä asiantuntijatietoa muuttujien välisistä suhteista \citep{ruggeri_bayesian_2008, myllymaki_bayes-verkkojen_1998}. 
+
+\citet{mittal_review_2011} esittelevät yhteenvedon ja vertailun muutamasta yleisimmin käytetystä algoritmista Bayes-verkon rakenteen oppimiseksi. Tässä katsauksessa on myös vertailtu algoritmien tarkkuutta ja tehokkuutta erikokoisissa aineistoissa.
+
+\citet{scanagatta_survey_2019} tarkastelevat tarkemmin erilaisia menetelmiä rakenteen oppimiseen. He jakavat ongelman ensinnäkin kahteen osaan: \emph{edeltäjäjoukon tunnistaminen} (\texttt{parent set identification}) ja \emph{verkon rakenteen optimointi} (\texttt{structure optimization}). 
+
+\citet{scanagatta_survey_2019} toteavat, että edeltäjäjoukon tunnistamisessa naiivi ratkaisu on laskea kaikki mahdolliset Bayes-verkot ja sovittaa niitä. Tällöin aikavaativuudeksi saadaan $O(n^k)$, jossa $n$ on solmujen eli satunnaismuuttujien määrä ja $k$ on yläraja sille, montako vanhempaa solmulla voi olla. Katsauksessa esitellään myös muutamia vaihtoehtoja, joissa muodostettavien Bayes-verkkojen määrää tai niiden hakua rajoittamalla saadaan suhteellisen tehokkaita laskentamentelmiä. Joko luvulle $k$ voidaan asettaa rajoite tai sitten rajoitetta voidaan kiertää esim. käyttämällä ahnetta hakua tai approksimointimenetlemiä.
+
+\citet{scanagatta_survey_2019} mukaan Bayes-verkon rakenteen oppimisen algoritmit keskittyvät useimmiten rakenteen optimoimiseen. Tätä ongelmaa voidaan edelleen lähestyä kahdella eri tavalla: optimoimalla rakennetta yleisesti eli ilman rajoitteita tuloksena saatavalle Bayes-verkolle tai rajoittamalla tuloksena saatavan Bayes-verkon puuleveyttä. Yleisen optimoinnin algoritmeille on esitetty useita eri lähestymistapoja: dynaaminen ohjelmointi, lyhimmän polun löytämisen soveltaminen ja branch and bound. Parhaita tuloksia näytettäisiin saavan algoritmeilla, jotka hyödyntävät \emph{kokonaislukujen lineaarista ohjelmointia} (\texttt{integer linear programming}). Puuleveyden rajaamiseen perustuvat menetelmät puolestaan perustuvat kaarien heuristiseen lisäämiseen, dynaamiseen ohjelmointiin, kokonaislukuohjelmointiin tai puuleveydeltään $k$ olevien maksimaalisten graafien eli $k$-puiden otoksiin.
+
+\subsection{Pisteyttämiseen perustuvat algoritmit}
+\subsection{Rajoitepohjaiset algoritmit}
