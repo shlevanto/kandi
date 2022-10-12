@@ -18,19 +18,33 @@ eli graafin solmut kuvaavat satunnaismuuttujia ja kaarien joukko $E$ kuvaa näid
 $$
     \theta_{x_i|\pi_i} = P_B(x_i|\pi_i)
 $$ 
-eli ehdollisista todennäköisyyksistätapaukselle $x_i$ ehtonaan muuttujan $X_i$ edeltäjien joukko verkossa $G$ \citep{ruggeri_bayesian_2008, myllymaki_bayes-verkkojen_1998}. Joukon $\Theta$ alkiot voidaan esittää \emph{ehdollisen todennäköisyyden taulukoina}  (\texttt{conditional probability table, CPT}) kaikille niille tapauksille, joita muuttujan edeltäjiensä ehdoilla voi saada \citep{zhang_brief_2019}.
+eli ehdollisista todennäköisyyksistätapaukselle $x_i$ ehtonaan muuttujan $X_i$ edeltäjien joukko verkossa $G$ \citep{ruggeri_bayesian_2008, myllymaki_bayes-verkkojen_1998}. Joukon $\Theta$ alkiot voidaan esittää \emph{ehdollisten todennäköisyyksien taulukoina}  (\texttt{conditional probability table, CPT}) kaikille niille tapauksille, joita muuttujan edeltäjiensä ehdoilla voi saada \citep{zhang_brief_2019}.
 
-<tähän tulee yksinkertainen esimerkki kuvan kanssa>
+Tarkastellaan esimerkkiä yksinkertaisesta Bayes-verkosta. Kesällä on varsin suuri todennäköisyys, että henkilö käy uimassa $P(S) = 0.8$. Vastaavasti todennäköisyys että kesäpäivänä sataa on melko pieni $P(S) = 0.1$. Selkeyden vuoksi oletetaan, että sateella ei ole mielekästä käydä uimassa.
 
-Bayes-verkko kuvaa siis satunnaismuuttujajoukon yhteistodennäköisyysjakaumaa ja siihen kuuluvien muuttujien välisiä riippuvuussuhteita. Vaikka Bayes-verkossa näitä riippuvuuksia kuvataan suunnattuina kaarina, painottavat mm. \citet{ruggeri_bayesian_2008, myllymaki_bayes-verkkojen_1998} että Bayes-verkon kaaret eivät kuvaa muuttujien välisiä kausaalisuhteita. Kausaalisuhteiden päätteleminen tai oppiminen datasta on mahdollista ja muodostaa oman mielenkiintoisen aihekokonaisuutensa. \citet{vowels_dya_2022} tarkastelee tuoreessa katsauksessaan tähän soveltuvia menetelmiä, mutta joudun valitettavasti rajaamaan niiden tarkastelun tämän tutkielman ulkopuolelle.
+$$
+    \tikzfig{bayes_ex_1}
+$$
 
-\section{Bayes-verkkojen pisteyttäminen funktioiden avulla}
-BIC = MDL
-BDeu
-Kehittyneempiäkin kuten esim. K2 \citep{behjati_improved_2020}.
+Jos henkilö käy uimassa, on hänen tukkansa märkä $P(T|U) = 1$ mutta paita kuiva $P(P) = 0$. Jos sataa, sekä tukka että paita kastuvat eli $P(P|S) = 1$ ja $P(T|S) = 1$. Tukan märkyys riippuu sekä sateesta, uinnista että paidan märkyydestä. Vastaavasti paidan märkyys riippuu vain sateesta, mutta ei tukan märkyydestä tai uinnista. Tässä esimerkissä joukon $\theta$ alkioita ovat taulukot
+
+<tähän tulee cpt:t>
+
+Verkon avulla voidaan nyt hahmottaa, miten eri muuttujat ovat riippuvaisia toisistaan ja esim. laskea todennäköisyys sille, että sataa kun tiedetään että henkilön tukka on märkä. 
+
+Bayes-verkko kuvaa siis satunnaismuuttujajoukon yhteistodennäköisyysjakaumaa ja siihen kuuluvien muuttujien välisiä riippuvuussuhteita. Vaikka Bayes-verkossa näitä riippuvuuksia kuvataan suunnattuina kaarina, painottavat mm. \citet{ruggeri_bayesian_2008, myllymaki_bayes-verkkojen_1998} että Bayes-verkon kaaret suuntineen eivät välttämättä kuvaa muuttujien välisiä kausaalisuhteita. Kausaalisuhteiden päätteleminen tai oppiminen datasta on toki mahdollista ja muodostaa oman mielenkiintoisen aihekokonaisuutensa. \citet{vowels_dya_2022} tarkastelee tuoreessa katsauksessaan tähän soveltuvia menetelmiä, mutta niiden käsitteleminen rajautuu tämän opinnäytetyön ulkopuolelle.
+
+\section{Bayes-verkkojen pisteyttäminen}
+Mallirakenteen uskottavuus \cite{myllymaki_bayes-verkkojen_1998}.
+
+Tunnetuin Bayes-verkon uskottavuutta kuvaava pisteytys on \citet{schwarz_estimating_1978} esittelemä \emph{BIC} (\texttt{Bayesian Information Criterion}) ja sitä vastaava \emph{MDL} (\texttt{Minimum Description Length}) \citep{ruggeri_bayesian_2008, liu_empirical_2012}. BIC:n ohella toinen suosittu pisteytys on \emph{BDeu} (\texttt{})  \cite{scanagatta_survey_2019}. Näiden lisäksi on olemassa erilaisia paikallisen rakenteen optimointiin perustuvia pisteytyksiä, mutta Empiirisellä datalla  tehdyssä vertailussa \citet{liu_empirical_2012} nimenomaan BIC tai sitä vastaava MDL antaa parhaan tuloksen verkon rakenteen oppimisessa.
+
+$$
+    näin lasketaan BIC / MDL
+$$
 
 \section{Bayes-verkon rakenteen oppiminen}
-Bayes-verkkojen käytännön sovelluksissa verkon rakenne on usein tuntematon \citep{ruggeri_bayesian_2008}, eli muuttujien välisiä yhteyksiä ei tiedetä. Tällöin mielenkiintoiseksi tehtäväksi muodostuu verkon rakenteen päätteleminen tai laskeminen datan pohjalta. Tämä Bayes-verkon rakenteen oppiminen on kompleksinen, todetusti NP-kova ongelma \citep{chickering_large-sample_2004}. Kompleksisuus voidaan päätellä siitä, että jo yksinkertaisten dikotomisten muuttujien muodostamassa Bayes-verkossa on $2^v$ mahdollista rakennetta, kun $v$ on satunnaismuuttujien määrä ja muuttujat ovat kaikki jollakin tavoin keskenään riippuvaisia. Nähdään siis, että kaikkien mahdollisten verkkojen laskeminen johtaa pahimmassa tapauksessa eksponentiaalisesti kasvavaan joukkoon. Ongelman kompleksisuus tekeekin siitä erityisen mielenkiintoisen, koska sen ratkaiseminen vaatii sopivaa tasapainottelua tarkkuuden ja laskentatehovaatimusten välillä.
+Bayes-verkkojen käytännön sovelluksissa verkon rakenne on usein tuntematon \citep{ruggeri_bayesian_2008}, eli muuttujien välisiä yhteyksiä ei tiedetä. Tällöin mielenkiintoiseksi tehtäväksi muodostuu verkon rakenteen päätteleminen tai laskeminen datan pohjalta. \citet{myllymaki_bayes-verkkojen_1998} mukaan mallintamisessa edetään ensin verkon rakenteen oppimisen kautta parametrijoukon laskemiseen. Tämä Bayes-verkon rakenteen oppiminen on kompleksinen, todetusti NP-kova ongelma \citep{chickering_large-sample_2004}. On helppo nähdä, että jo yksinkertaisten dikotomisten muuttujien muodostamassa Bayes-verkossa on $2^v$ mahdollista rakennetta, kun $v$ on satunnaismuuttujien määrä ja muuttujat ovat kaikki jollakin tavoin keskenään riippuvaisia. Nähdään siis, että kaikkien mahdollisten verkkojen laskeminen johtaa pahimmassa tapauksessa eksponentiaalisesti kasvavaan joukkoon. Rakenteen oppimisen kompleksisuus tekeekin siitä erityisen mielenkiintoisen, koska sen ratkaiseminen vaatii sopivaa tasapainottelua tarkkuuden ja laskentatehovaatimusten välillä.
 
 Rakenteen oppimista voidaan lähestyä kahdella tavalla: \emph{pisteyttämällä} (\texttt{score based}),  \emph{rajoitepohjaisesti} (\texttt{constraint based}) \citep{ramsahai_connecting_2020, scutari_learning_2010} tai yhdistämällä näitä esim. \citep{li_hybrid_2018}. Pisteyttämisessä etsitään eri vaihtoehtojen joukosta sellainen Bayes-verkko, jonka sopivuutta kuvaava funktio saa parhaan mahdollisen arvon. Rajoitepohjaisessa lähestymistavassa puolestaan solmuissa oleville muuttujille ajetaan tilastollisia testejä (esim. $\chi^2$), joiden avulla arvioidaan muuttujien riippumattomuutta ja näin pyritään aineistoon sopivin verkko \citep{ramsahai_connecting_2020, scutari_learning_2010}. 
 
