@@ -8,9 +8,9 @@ Tarkastelen tässä tutkielmassa graafisiin malleihin kuuluvien Bayes-verkkojen 
 Bayes-verkko on \emph{suunnattu syklitön verkko} (\texttt{Directed Acyclic Graph, DAG}), joka kuvaa satunnaismuuttujien yhteistodennäköisyysjakaumaa \citep{ruggeri_bayesian_2008}. Tarkastellaan seuraavaksi mitä tämä tarkoittaa.
 
 \subsection{Verkko eli graafi}
-\emph{Verkko} eli \emph{graafi} on matematiikassa ja tietojenkäsittelytieteessä yleisesti käytössä oleva käsite. Graafien avulla voidaan yleisesti kuvata ja mallintaa monimutkaisia ja toistensa kanssa risteäviä yhteyksiä intuitiivisella ja ymmärrettävällä tavalla. Graafeja ja graafiteoriaa on käsittelee tarkemmin esim. \citet{diestel_graph_2017}.
+\emph{Verkko} eli \emph{graafi} on matematiikassa ja tietojenkäsittelytieteessä yleinen käsite. Graafien avulla voidaan  kuvata ja mallintaa monimutkaisia ja toistensa kanssa risteäviä yhteyksiä intuitiivisella ja ymmärrettävällä tavalla. Graafeja ja graafiteoriaa on käsittelee tarkemmin esim. \citet{diestel_graph_2017}.
 
-Matemaattisesti ilmaistuna graafi $G$ on pari, joka koostuu joukosta \emph{solmuja} (\texttt{node} tai \texttt{vertex}) $V$ ja joukosta niitä yhdistäviä \emph{kaaria} (\texttt{edge}) $E$. Kaaret voivat olla suunnattuja, eli niille on erikseen määritelty alku- ja päätesolmu tai ne voivat olla suuntaamattomia. Graafia kutsutaan suunnatuksi tai suuntaamattomaksi sen mukaisesti, minkälaisia kaaria siinä on. Suunnattu graafi määritellään formaalisti 
+Matemaattisesti ilmaistuna graafi $G$ on pari, joka koostuu joukosta \emph{solmuja} (\texttt{node} tai \texttt{vertex}) $V$ ja joukosta niitä yhdistäviä \emph{kaaria} (\texttt{edge}) $E$. Graafia kutsutaan suunnatuksi tai suuntaamattomaksi sen mukaisesti, minkälaisia kaaria siinä on. Suunnattu graafi määritellään 
 $$
     G = \{V, E\}, E \subseteq \{(a,b) : a,b \in V \}
 $$
@@ -18,8 +18,9 @@ ja suuntaamaton graafi vastaavasti
 $$
     G = \{V, E\}, E \subseteq \{\{a,b\} : a,b \in V \}
 $$
+Eli suunnatussa graafissa kaaret ovat järjestettyjä pareja ja  suuntaamattomassa järjestämättömiä pareja.  
 
-Graafin solmujen $x_0, x_k$ välillä on \emph{polku}, jos solmusta $x_0$ lähteviä kaaria pitkin kulkemalla voidaan päästä solmuun $x_k$. Matemaattisesti ilmaistuna polku $P=(V,E)$ on graafi tai graafin solmujen ja niitä yhdistävien kaarien osajoukko, jossa 
+Graafin solmujen $x_0, x_k$ välillä on \emph{polku}, jos solmusta $x_0$ lähteviä kaaria pitkin kulkemalla voidaan päästä solmuun $x_k$. Matemaattisesti ilmaistuna polku $P=(V,E)$ on graafi tai graafin solmujen ja niitä yhdistävien kaarten osajoukko, jossa 
 $$
     V = \{x_0, x_1, \ldots x_k \} \qquad E = \{(x_0, x_1), (x_1,x_2),\ldots(x_{k-1}, x_k)\}
 $$ 
@@ -35,27 +36,31 @@ Graafi on \emph{syklitön}, kun se tai mikään sen solmujen ja niitä yhdistäv
 Todennäköisyysteoria on vakiintunut matematiikan osa-alue, joka muodostaa perustan nykyaikaiselle tilastotieteelle. Todennäköisyyslaskennan käsitteistöä ja teoriaa esitellään laajemmin mm. \citet{dasgupta_probability_2011}.
 
 \subsubsection{Satunnaismuuttujat ja yhteistodennäköisyysjakaumat}
-\emph{Satunnaismuuttuja} on funktio, joka kuvaa jonkin tietyn satunnaistapahtuman määräämää lukua. Satunnaismuuttujan arvo siis vaihtelee havaintotapauksesta toiseen jonkin tietyn arvojoukon sisällä. Esimerkiksi yksittäisen nopanheiton tulos on tapahtuma, joka voi saada jonkin arvon joukosta $\{1,2,3,4,5,6\}$. Satunnaismuuttujalla kuvataan tässä tapauksessa todennäköisyyttä saada jokin tietty tulos yksittäisestä nopanheitoista. \emph{Todennäköisyysjakauma} puolestaan kuvaa todennäköisyyttä, jolla satunnaismuuttuja saa jonkin tietyn arvon.
+\emph{Satunnaismuuttuja} on funktio, joka kuvaa jonkin tietyn satunnaistapahtuman määräämää lukua. Satunnaismuuttujan arvo siis vaihtelee havaintotapauksesta toiseen jonkin tietyn arvojoukon sisällä. Esimerkiksi yksittäisen nopanheiton tulos on satunnaistapahtuma, joka voi saada jonkin arvon joukosta $\{1,2,3,4,5,6\}$. Satunnaismuuttujalla kuvataan tässä tapauksessa todennäköisyyttä saada jokin tietty tulos yksittäisestä nopanheitoista. \emph{Todennäköisyysjakauma} puolestaan kuvaa todennäköisyyttä, jolla satunnaismuuttuja saa jonkin tietyn arvon.
 
-Satunnaismuuttujien \emph{yhteistodennäköisyysjakauma} kuvaa kahden tai useamman muuttujan kaikkien mahdollisten lopputulosten ja niiden todennäköisyyksien joukkoa. Esimerkiksi jos heitetään noppaa kaksi kertaa, voidaan yhteistodennäköisyysjakauman avulla selvittää todennäkäisyys saada ensimmäisellä nopanheitolla pienempi arvo kuin jälkimmäisellä. MuuttujieYhteistodennäköisyysjakauman yksittäisten muuttujien jakaumia kutsutaan \emph{reunajakaumiksi}.
+Satunnaismuuttujien \emph{yhteistodennäköisyysjakauma} kuvaa kahden tai useamman muuttujan kaikkien mahdollisten lopputulosten ja niiden todennäköisyyksien joukkoa. Esimerkiksi jos heitetään noppaa kaksi kertaa, voidaan yhteistodennäköisyysjakauman avulla selvittää todennäkäisyys saada ensimmäisellä nopanheitolla pienempi arvo kuin jälkimmäisellä. Yhteistodennäköisyysjakauman yksittäisten muuttujien jakaumia kutsutaan \emph{reunajakaumiksi}.
 
 \subsubsection{Muuttujien riippumattomuus}
-Satunnaistapahtumat voivat olla keskenään \emph{riippuvaisia} tai \emph{riippumattomia}. Tapahtumat $A$ ja $B$ ovat riippumattomia $A \indep B$, jos
+Satunnaistapahtumat voivat olla keskenään \emph{riippuvaisia} tai \emph{riippumattomia}. Tapahtumat $A$ ja $B$ ovat riippuvaisia, jos ehdolliset todennäköisyydet $P(B|A) \not= P(B)$ ja $P(A|B) \not= P(A)$ eli tapahtuman yhden tapahtuman tulos vaikuttaa toiseen tapahtumaan.
+
+Jos esimerkiksi  kulhossa on sama määrä mustia ja valkoisia palloja ja niistä nostetaan ilman takaisinpanoa kaksi palloa, vaikuttaa ensimmäisen nostetun pallon väri $A$ todennäköisyyteen jolla jälkimmäisen nostetun pallon väri $B$ on valkoinen tai musta. Jos ensimmäinen nostettu pallo pannaan takaisin kulhoon ennen jälkimmäisen pallon nostamista, ei tätä vaikutusta ole. Tällöintapahtumat $A$ ja $B$ riippumattomia. 
+
+Riippumattomuus $A \indep B$ määritelmällinen ehto on
 $$
     P(A)P(B|A) = P(A)P(B) 
-$$
-Vastaavasti tapahtumat $A$ ja $B$ ovat riippuvaisia, jos ehdollinen todennäköisyys $P(A|B) \not= P(B)$ eli tapahtuman $A$ on lopputulos vaikuttaa tapahtumaan $B$.
+$$ 
+Vastaavasti satunnaismuuttujat $X$ ja $Y$ ovat riippumattomia $X \indep Y$, jos niiden kuvaamat tapahtumat ovat riippumattomia. 
 
-Jos esimerkiksi  kulhossa on sama määrä mustia ja valkoisia palloja ja niistä nostetaan ilman takaisinpanoa kaksi palloa, vaikuttaa ensimmäisen nostetun pallon väri $A$ todennäköisyyteen jolla jälkimmäisen nostetun pallon väri $B$ on valkoinen tai musta. Jos ensimmäinen nostettu pallo pannaan takaisin kulhoon ennen jälkimmäisen pallon nostamista, ovat tapahtumat $A$ ja $B$ riippumattomia. Vastaavasti satunnaismuuttujat $X$ ja $Y$ ovat riippumattomia $X \indep Y$, jos niiden kuvaamat tapahtumat ovat riippumattomia.
 
-\subsection{Priori- ja posterioritodennäköisyys}
+
+\subsubsection{Priori- ja posterioritodennäköisyys}
 Ehdollinen todennäköisyys mahdollistaa  tapahtuman todennäköisyyden tarkastelun aiempien olosuhteiden tai tapahtumien tuloksen nojalla. Keskeinen työkalu tässä on Bayesin kaava, joka kuvaa ehdollisten todennäköisyyksien suhdetta toisiinsa.
 $$
     P(A|B) = \frac{P(B|A)P(A)}{P(B)}
 $$
-Kaavan avulla voidaan siis päätellä jonkin tapahtuman ehdollinen todennäköisyys, kun tiedetään että tapahtumaan vaikuttaa erinäisiä taustatekijöitä joiden todennäköisyys on tunnettu. Esim. henkilön riskissä sairastua muistisairauteen on ymmärrettävästi mielekästä ottaa huomioon hänen ikänsä.
+Bayesin kaavan avulla voidaan päätellä jonkin tapahtuman ehdollinen todennäköisyys, kun tiedetään että tapahtumaan vaikuttaa erinäisiä taustatekijöitä joiden todennäköisyys on tunnettu. Esim. henkilön riskissä sairastua muistisairauteen on ymmärrettävästi mielekästä ottaa huomioon hänen ikänsä.
 
-Bayesin kaavassa todennäköisyyttä $P(A|B)$ kutsutaan \emph{posterioritodennäköisyydeksi} ja todennäköisyyksiä $P(A)$ ja $P(B)$ \emph{prioritodennäköisyyksiksi}.
+Todennäköisyyttä $P(A|B)$ kutsutaan \emph{posterioritodennäköisyydeksi} ja todennäköisyyksiä $P(A)$ ja $P(B)$ \emph{prioritodennäköisyyksiksi}.
 
 
 

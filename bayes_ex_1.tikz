@@ -6,7 +6,7 @@
 		\node [style=node] (3) at (2, -1) {T};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
-		\draw [style=edge] (2) to (3);
+		%\draw [style=edge] (2) to (3);
 		\draw [style=edge] (0) to (2);
 		\draw [style=edge] (1) to (3);
 		\draw [style=edge] (0) to (3);
