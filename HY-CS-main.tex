@@ -91,7 +91,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Set up personal information for the title page and the abstract form.
 %% Replace parameters with your information.
-\title{Bayes-verkon rakenteen oppimisen sovellukset vakuutusdatassa}
+\title{Bayes-verkon rakenteen oppimisen soveltaminen työkyvyttömyysriskin mallintamisessa}
 
 \author{Simo Levanto}
 \date{\today}
@@ -185,13 +185,19 @@ Bayesian network models
 
 \include{Ch.10_Johdanto}
 \include{Ch.20_Bayes-verkot}
-\include{Ch.30_Sovelluskohteet}
-\include{Ch.40_Ohjelmistot}
+\include{Ch.30_Ohjelmistot}
+\include{Ch.40_Sovelluskohteet}
 \include{Ch.50_Johtopaatokset}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[LE,RO]{\thepage}
+
 %\cleardoublepage                          %fixes the position of bibliography in bookmarks
 %\phantomsection
+
 \addcontentsline{toc}{chapter}{\bibname}  % This lines adds the bibliography to the ToC
 \printbibliography
 
