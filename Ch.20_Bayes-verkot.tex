@@ -77,7 +77,7 @@ Jos henkilö käy uimassa, on hänen tukkansa märkä, mutta paita kuiva. Jos sa
     \end{tabular}
 \end{tabular}
 \end{center}
-Voimme laskea todennäköisyyden sille, että satunnaisena kesäpäivänä henkilöllä on märkä tukka
+Mallin esittämän yhteistodennäköisyysjakauman avulla voimme laskea todennäköisyyden esimerkiksi sille, että satunnaisena kesäpäivänä henkilöllä on märkä tukka
 $$
     P(T) = (0.1\cdot0.8) + (0.1\cdot0.2) + (0.9\cdot0.8) = 0.82
 $$
@@ -88,28 +88,37 @@ $$
   P(S|T) = \frac{P(T|S)P(S)}{P(T)} = \frac{1 \cdot P(0.1)}{P(0.82)} = 0.12   
 $$
 
-Bayes-verkko kuvaa siis satunnaismuuttujajoukon yhteistodennäköisyysjakaumaa ja siihen kuuluvien muuttujien välisiä riippuvuussuhteita. Vaikka esimerkissä \ref{fig:bayes-esim} on selkeästi kyse kausaalisuhteista ja Bayes-verkossa riippuvuuksia kuvataan suunnattuina kaarina, painottavat mm. \citet{ruggeri_bayesian_2008, myllymaki_bayes-verkkojen_1998} että Bayes-verkon kaaret suuntineen eivät välttämättä kuvaa muuttujien välisiä kausaalisuhteita. Kausaalisuhteiden päätteleminen tai oppiminen datasta on toki mahdollista ja muodostaa oman mielenkiintoisen aihekokonaisuutensa. \citet{vowels_dya_2022} tarkastelee tuoreessa katsauksessaan tähän soveltuvia menetelmiä, mutta niiden käsitteleminen rajautuu tämän opinnäytetyön ulkopuolelle.
+Bayes-verkko kuvaa siis satunnaismuuttujajoukon yhteistodennäköisyysjakaumaa ja siihen kuuluvien muuttujien välisiä riippuvuussuhteita. Vaikka esimerkissä \ref{fig:bayes-esim} on selkeästi kyse kausaalisuhteista ja Bayes-verkossa riippuvuuksia kuvataan suunnattuina kaarina, painottavat mm. \citet{ruggeri_bayesian_2008, myllymaki_bayes-verkkojen_1998} että Bayes-verkon kaaret suuntineen eivät välttämättä kuvaa muuttujien välisiä kausaalisuhteita. Kausaalisuhteiden päätteleminen tai oppiminen datasta on haastavaa, mutta joissain tapauksissa mahdollista ja muodostaa oman mielenkiintoisen aihekokonaisuutensa. \citet{vowels_dya_2022} tarkastelee tuoreessa katsauksessaan tähän soveltuvia menetelmiä, mutta niiden käsitteleminen rajautuu tämän opinnäytetyön ulkopuolelle.
 
 \section{Bayes-verkkojen pisteyttäminen}
-Bayes-verkon \emph{kokonaisuskottavuutta} eli sopivuus \citep{myllymaki_bayes-verkkojen_1998} tulkitaan niin, että todennäköisin malli annetulla datajoukolla on sopivin. Mallin kokonaisuskottavuutta arvioidaan ehdollisena posterioritodennäköisyytensä $P(M | \mathcal{D})$, missä $\mathcal{D}$ on mallin opettamiseen käytetty aineisto. Tunnetuin Bayes-verkon uskottavuutta kuvaava pisteytys on \citet{schwarz_estimating_1978} esittelemä \emph{BIC} (\texttt{Bayesian Information Criterion}) ja sitä vastaava \emph{MDL} (\texttt{Minimum Description Length}) \citep{ruggeri_bayesian_2008, liu_empirical_2012}. \citet{myllymaki_bayes-verkkojen_1998} esittävät BIC:n approksimaatioon kaavan
+
+Bayes-verkkojen käytännön sovelluksissa verkon rakenne on usein tuntematon \citep{ruggeri_bayesian_2008}, eli muuttujien välisiä riippuvuuksia ei tiedetä. Tällöin mielenkiintoiseksi tehtäväksi muodostuu verkon rakenteen päätteleminen tai laskeminen datan pohjalta. \citet{myllymaki_bayes-verkkojen_1998} mukaan mallintamisessa edetään mallin sopivuuden arvioimisesta verkon rakenteen oppimisen kautta parametrijoukon laskemiseen. 
+
+Bayes-verkon \emph{kokonaisuskottavuutta} eli sopivuutta \citep{myllymaki_bayes-verkkojen_1998} tulkitaan niin, että todennäköisin malli annetulla datajoukolla on sopivin. Kokonaisuskottavuutta kuvataan ehdollisena posterioritodennäköisyytenä $P(M | \mathcal{D})$, missä $\mathcal{D}$ on mallin opettamiseen käytetty aineisto. Tunnetuin Bayes-verkon uskottavuutta kuvaava pisteytys on \citet{schwarz_estimating_1978} esittelemä \emph{BIC} (\texttt{Bayesian Information Criterion}) ja sitä vastaava \emph{MDL} (\texttt{Minimum Description Length}) \citep{ruggeri_bayesian_2008, liu_empirical_2012}. \citet{myllymaki_bayes-verkkojen_1998} esittävät BIC:n approksimaatioon kaavan
 
 $$
 P(\mathcal{D}|M) = \frac{P(\mathcal{D}|M, \bar{\theta})}{N{\frac{d(M)}{2}}}
 $$
 
-jossa $\bar{\theta}$ kuvaa suurimman uskottavuuden parametrijoukkoa, $d(M)$ malliparametrien lukumäärä ja $N$ mallin opettamiseen käytet datajoukon koko. MDL puolestaan on tämän approksimaation negatiivinen logaritmi (kts. \citet{rissanen_stochastic_1987}).
+jossa $\bar{\theta}$ kuvaa suurimman uskottavuuden parametrijoukkoa, $d(M)$ malliparametrien lukumäärä ja $N$ mallin opettamiseen käytetyn datajoukon koko. MDL puolestaan on tämän approksimaation negatiivinen logaritmi (kts. \citet{rissanen_stochastic_1987}).
+
+BIC:n ohella toinen suosittu pisteytys on \emph{BDeu} (\texttt{Bayesian Dirichlet equivalent uniform})  \citep{scanagatta_survey_2019}. Lisäksi on olemassa erilaisia paikallisen rakenteen optimointiin perustuvia pisteytyksiä. 
 
 \section{Bayes-verkon rakenteen oppiminen}
-Bayes-verkkojen käytännön sovelluksissa verkon rakenne on usein tuntematon \citep{ruggeri_bayesian_2008}, eli muuttujien välisiä riippuvuuksia ei tiedetä. Tällöin mielenkiintoiseksi tehtäväksi muodostuu verkon rakenteen päätteleminen tai laskeminen datan pohjalta. \citet{myllymaki_bayes-verkkojen_1998} mukaan mallintamisessa edetään ensin verkon rakenteen oppimisen kautta parametrijoukon laskemiseen.
 
-Bayes-verkon rakenteen oppiminen on kompleksinen, todetusti NP-kova ongelma \citep{chickering_large-sample_2004}. On helppo nähdä, että jo yksinkertaisten dikotomisten muuttujien muodostamassa Bayes-verkossa on $2^v$ mahdollista rakennetta, kun $v$ on satunnaismuuttujien määrä ja muuttujat ovat kaikki jollakin tavoin keskenään riippuvaisia. Nähdään siis, että kaikkien mahdollisten verkkojen laskeminen johtaa pahimmassa tapauksessa eksponentiaalisesti kasvavaan joukkoon. Rakenteen oppimisen kompleksisuus tekeekin siitä erityisen mielenkiintoisen ongelman, koska sen ratkaiseminen vaatii sopivaa tasapainottelua tarkkuuden ja laskentatehovaatimusten välillä.
+Bayes-verkon rakenteen oppiminen on laskennallisesti vaativa, todetusti NP-kova ongelma \citep{chickering_large-sample_2004}. On helppo nähdä, että jo yksinkertaisten dikotomisten muuttujien muodostamassa Bayes-verkossa on $2^v$ mahdollista rakennetta, kun $v$ on satunnaismuuttujien määrä ja muuttujien välillä on riippuvuuksia. Nähdään, että kaikkien mahdollisten verkkojen laskeminen johtaa pahimmassa tapauksessa eksponentiaalisesti kasvavaan joukkoon. Rakenteen oppimisen laskennallinen vaativuus tekeekin siitä erityisen mielenkiintoisen ongelman, jonka ratkaiseminen vaatii sopivaa tasapainottelua tarkkuuden ja laskentatehovaatimusten välillä.
 
-Rakenteen oppimista voidaan lähestyä kahdella tavalla: \emph{pisteyttämällä} (\texttt{score based}),  \emph{rajoitepohjaisesti} (\texttt{constraint based}) \citep{ramsahai_connecting_2020, scutari_learning_2010} tai yhdistämällä näitä esim. \citet{li_hybrid_2018}. Pisteyttämisessä etsitään eri vaihtoehtojen joukosta sellainen Bayes-verkko, jonka sopivuutta kuvaava funktio (esim. BIC) saa parhaan mahdollisen arvon. BIC:n ohella toinen suosittu pisteytys on \emph{BDeu} (\texttt{Bayesian Dirichlet equivalent uniform})  \citep{scanagatta_survey_2019}. Näiden lisäksi on olemassa erilaisia paikallisen rakenteen optimointiin perustuvia pisteytyksiä. Empiirisellä datalla  tehdyssä vertailussa \citet{liu_empirical_2012} ovat osoittaneet, että nimenomaan BIC ja sitä vastaava MDL antavat hyvin luotettavia tuloksia verkon rakenteen oppimisessa. 
+Rakenteen oppimista voidaan lähestyä kahdella tavalla: \emph{pisteyttämällä} (\texttt{score based}),  \emph{rajoitepohjaisesti} (\texttt{constraint based}) \citep{ramsahai_connecting_2020, scutari_learning_2010} tai yhdistämällä näitä esim. \citet{li_hybrid_2018}. Bayes-verkon rakennetta voidaan myös arvioida ja täydentää kvalitatiivisesti käyttämällä asiantuntijatietoa muuttujien välisistä suhteista \citep{ruggeri_bayesian_2008, myllymaki_bayes-verkkojen_1998}.
 
-Rajoitepohjaisessa lähestymistavassa puolestaan solmuissa oleville muuttujille ajetaan tilastollisia testejä (esim. $\chi^2$), joiden avulla arvioidaan muuttujien riippumattomuutta ja näin pyritään löytämään aineistoon sopivin tai uskottavin verkko \citep{ramsahai_connecting_2020, scutari_learning_2010}. 
+\subsection{Pisteyttämiseen perustuvat algoritmit}
 
-Bayes-verkon rakennetta voidaan myös täydentää kvalitatiivisesti käyttämällä asiantuntijatietoa muuttujien välisistä suhteista \citep{ruggeri_bayesian_2008, myllymaki_bayes-verkkojen_1998}. 
+Pisteyttämiseen pohjautuvissa algoritmeissa kokeillaan ertilaisia vaihtoehtoisia rakenteita, ja valitaan niistä sellainen Bayes-verkko, jonka sopivuutta kuvaava funktio (esim. BIC) saa parhaan mahdollisen arvon. Empiirisellä datalla tehdyssä vertailussa \citet{liu_empirical_2012} ovat osoittaneet, että nimenomaan BIC ja sitä vastaava MDL antavat hyvin luotettavia tuloksia verkon rakenteen oppimisessa.  
 
+\subsection{Rajoitepohjaiset algoritmit}
+
+Rajoitepohjaisessa lähestymistavassa puolestaan solmuissa oleville muuttujille ajetaan tilastollisia testejä (esim. $\chi^2$), joiden avulla arvioidaan muuttujien riippumattomuutta ja näin pyritään löytämään aineistoon sopivin eli uskottavin verkko \citep{ramsahai_connecting_2020, scutari_learning_2010}. <avaa tätä>
+
+ 
 \citet{scanagatta_survey_2019} tarkastelevat tarkemmin erilaisia menetelmiä rakenteen oppimiseen. He jakavat ongelman ensinnäkin kahteen osaan: \emph{edeltäjäjoukon tunnistaminen} (\texttt{parent set identification}) ja \emph{verkon rakenteen optimointi} (\texttt{structure optimization}). 
 
 \citet{scanagatta_survey_2019} toteavat, että edeltäjäjoukon tunnistamisessa naiivi ratkaisu on laskea kaikki mahdolliset Bayes-verkot ja sovittaa niitä. Tällöin aikavaativuudeksi saadaan $O(n^k)$, jossa $n$ on solmujen eli satunnaismuuttujien määrä ja $k$ on yläraja sille, montako vanhempaa solmulla voi olla. Katsauksessa esitellään myös muutamia vaihtoehtoja, joissa muodostettavien Bayes-verkkojen määrää tai niiden hakua rajoittamalla saadaan suhteellisen tehokkaita laskentamentelmiä. Joko luvulle $k$ voidaan asettaa rajoite tai sitten rajoitetta voidaan kiertää esim. käyttämällä ahnetta hakua tai approksimointimenetelmiä.
@@ -118,5 +127,3 @@ Bayes-verkon rakennetta voidaan myös täydentää kvalitatiivisesti käyttämä
 
 \citet{mittal_review_2011} esittelevät yhteenvedon ja vertailun muutamasta yleisimmin käytetystä algoritmista Bayes-verkon rakenteen oppimiseksi. Lisäksi he vertailevat algoritmien tarkkuutta ja tehokkuutta erikokoisissa aineistoissa. Käyn seuraavaksi läpi muutamia keskeisiä pisteyttämiseen ja rajoitepohjaisuuteen perustuvia algoritmeja.
 
-\subsection{Pisteyttämiseen perustuvat algoritmit}
-\subsection{Rajoitepohjaiset algoritmit}

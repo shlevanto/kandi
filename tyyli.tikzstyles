@@ -8,3 +8,4 @@
 
 % Edge styles
 \tikzstyle{edge}=[->, line width=2pt]
+\tikzstyle{UD_edge}=[-]

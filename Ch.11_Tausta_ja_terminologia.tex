@@ -1,0 +1,87 @@
+\chapter{Tausta ja terminologia\label{background}}
+
+Bayes-verkko on \emph{suunnattu syklitön verkko} (\texttt{Directed Acyclic Graph, DAG}), joka kuvaa satunnaismuuttujien yhteistodennäköisyysjakaumaa \citep{ruggeri_bayesian_2008}.
+
+\section{Verkko eli graafi}
+\emph{Verkko} eli \emph{graafi} on matematiikassa ja tietojenkäsittelytieteessä yleinen käsite. Graafien avulla voidaan  kuvata ja mallintaa monimutkaisia ja toistensa kanssa risteäviä yhteyksiä intuitiivisella ja ymmärrettävällä tavalla. Graafeja ja graafiteoriaa on käsittelee tarkemmin esim. \citet{diestel_graph_2017}.
+
+\begin{center}
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+    \captionof{figure}{Suuntaamaton graafi \label{fig:ud-graph}}
+    \tikzfig{UD_graph}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+    \captionof{figure}{Suunnattu graafi \label{fig:di-graph}}
+    \tikzfig{DI_graph}
+\end{minipage}
+\end{center}
+
+Matemaattisesti ilmaistuna graafi $G$ on pari, joka koostuu joukosta \emph{solmuja} (\texttt{node} tai \texttt{vertex}) $V$ ja joukosta niitä yhdistäviä \emph{kaaria} (\texttt{edge}) $E$. Graafia kutsutaan suunnatuksi tai suuntaamattomaksi sen mukaisesti, minkälaisia kaaria siinä on. Suunnatuilla kaarilla on erikseen määritelty lähtö- ja päätesolmu ja kaaren suuntaa merkitään nuolella. Suunnattu graafi määritellään 
+$$
+    G = \{V, E\}, E \subseteq \{(a,b) : a,b \in V \}
+$$
+ja suuntaamaton graafi vastaavasti
+$$
+    G = \{V, E\}, E \subseteq \{\{a,b\} : a,b \in V \}
+$$
+Eli suunnatussa graafissa kaaret ovat järjestettyjä pareja, joita merkitään $(a,b)$ ja  suuntaamattomassa järjestämättömiä pareja, joita merkitään $\{a,b\}$.
+
+Graafin solmujen $x_0, x_k$ välillä on \emph{polku}, jos solmusta $x_0$ lähteviä kaaria pitkin kulkemalla voidaan päästä solmuun $x_k$. Matemaattisesti ilmaistuna polku $P=(V,E)$ on graafi tai graafin solmujen ja niitä yhdistävien kaarten osajoukko, jossa 
+$$
+    V = \{x_0, x_1, \ldots x_k \} \qquad E = \{(x_0, x_1), (x_1,x_2),\ldots(x_{k-1}, x_k)\}
+$$ 
+siten, että jokainen $x_i$ on erillinen solmu. Polulla järjestyksessä ensiksi olevaa solmua kutsutaan \emph{edeltäjäksi} ja seuraavaa solmua sen \emph{jälkeläiseksi}.
+
+\begin{center}
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+    \captionof{figure}{Syklitön graafi \label{fig:DAG}}
+    \tikzfig{acyclic_graph}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+    \captionof{figure}{Graafi, jossa on sykli \{A,B,C\} \label{fig:cyclic}}
+    \tikzfig{cyclic_graph}
+\end{minipage}
+\end{center}
+
+
+Polku on \emph{sykli}, jos siinä on vähintään kolme solmua ja sen alkusolmu on sama kuin päätesolmu eli sykli $C = (V, E)$, on polku jossa
+$$
+    V = \{x_0, x_1, \ldots x_k \} \qquad E = \{(x_0, x_1), (x_1,x_2),\ldots(x_{k-1}, x_k), (x_k, x_0)\}
+$$
+Graafi on \emph{syklitön}, kun se tai mikään sen solmujen ja niitä yhdistävien kaarien osajoukko ei muodosta sykliä. 
+
+\section{Todennäköisyyslaskennan käsitteitä}
+Todennäköisyyslaskenta on matematiikan osa-alue, joka muodostaa perustan nykyaikaiselle tilastotieteelle. Todennäköisyyslaskennan käsitteistöä ja teoriaa esittelee laajemmin mm. \citet{dasgupta_probability_2011}.
+
+\subsection{Satunnaismuuttujat ja yhteistodennäköisyysjakaumat}
+\emph{Satunnaismuuttuja} on funktio, joka kuvaa jonkin tietyn \emph{satunnaistapahtuman} määräämää lukua. Satunnaismuuttujan arvo siis vaihtelee havaintotapauksesta toiseen jonkin tietyn arvojoukon sisällä. Esimerkiksi olkoon yksittäisen nopanheiton tulos satunnaistapahtuma $A$, joka voi saada jonkin arvon joukosta $\{1,2,3,4,5,6\}$. \emph{Todennäköisyysjakauma} $P(A=a)$ kuvaa nyt todennäköisyyttä, jolla satunnaismuuttuja $A$ saa jonkin tietyn arvon $a$.
+
+Satunnaismuuttujien \emph{yhteistodennäköisyysjakauma} $P(A_1, A_2, \ldots ,A_n)$ kuvaa kahden tai useamman muuttujan kaikkien mahdollisten lopputulosten ja niiden todennäköisyyksien joukkoa. Esimerkiksi jos heitetään noppaa kaksi kertaa, voidaan yhteistodennäköisyysjakauman $P(A_1, A_2)$ avulla selvittää todennäkäisyys saada ensimmäisellä nopanheitolla pienempi arvo kuin jälkimmäisellä. Yhteistodennäköisyysjakauman yksittäisten muuttujien jakaumia $P(A_1), P(A_2),\dots, P(A_n)$ kutsutaan \emph{reunajakaumiksi}.
+
+\subsection{Muuttujien riippumattomuus}
+Satunnaistapahtumat voivat olla keskenään \emph{riippuvia} tai \emph{riippumattomia}. Tapahtumat $A$ ja $B$ ovat riipuvia, jos ehdollisille todennäköisyyksille $P(B|A)$ ja $P(A|B)$ pätee $P(B|A) \not= P(B)$ ja $P(A|B) \not= P(A)$ eli yhden tapahtuman tulos vaikuttaa toisen tapahtuman todennäköisyyteen.
+
+Jos esimerkiksi  kulhossa on sama määrä mustia ja valkoisia palloja ja niistä nostetaan ilman takaisinpanoa kaksi palloa, vaikuttaa ensimmäisen nostetun pallon väri $A$ todennäköisyyteen jolla jälkimmäisen nostetun pallon väri $B$ on valkoinen tai musta, sillä kulhossa ei enää ole samaa määrää mustia ja valkoisia palloja. Jos ensimmäinen nostettu pallo pannaan takaisin kulhoon ennen jälkimmäisen pallon nostamista, ei tätä vaikutusta ole koska nyt palloja on toisen noston tapahtuessa kulhossa keskenään sama määrä. Ilman takaisinpanoa tapahtumat $A$ ja $B$ ovat riippumattomia. 
+
+Riippumattomuuden $A \indep B$ määritelmällinen ehto on
+$$
+    P(A,B) = P(A)P(B|A) = P(A)P(B) 
+$$ 
+Vastaavasti satunnaismuuttujat $P(A = a)$ ja $P(B = b)$ ovat riippumattomia $P(A = a)  \indep P(B = b)$, jos niiden kuvaamat tapahtumat ovat riippumattomia. 
+
+
+\subsection{Priori- ja posterioritodennäköisyys}
+Ehdollinen todennäköisyys mahdollistaa  tapahtuman todennäköisyyden tarkastelun aiempien olosuhteiden tai tapahtumien tuloksen nojalla. Keskeinen työkalu tässä on Bayesin kaava \ref{eq:bayes}, joka kuvaa ehdollisten todennäköisyyksien suhdetta toisiinsa.
+\begin{equation}\label{eq:bayes}
+        P(A|B) = \frac{P(B|A)P(A)}{P(B)}
+\end{equation}
+
+Bayesin kaavan avulla voidaan päätellä jonkin tapahtuman ehdollinen todennäköisyys, kun tiedetään että tapahtumaan vaikuttaa erinäisiä taustatekijöitä joiden todennäköisyys on tunnettu. Esim. henkilön riskissä sairastua muistisairauteen on ymmärrettävästi mielekästä ottaa huomioon hänen ikänsä.
+
+Todennäköisyyttä $P(A|B)$ kutsutaan \emph{posterioritodennäköisyydeksi} ja todennäköisyyksiä $P(A)$ ja $P(B)$ \emph{prioritodennäköisyyksiksi}. Vastaavasti tapahtumaa $(A|B)$ kutsutaan \emph{posterioritapahtumaksi} ja tapahtumia $A$ ja $B$ \emph{prioritapahtumiksi}.
