@@ -1,0 +1,16 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=node] (3) at (1, -1) {X};
+		\node [style=node] (4) at (3, 3) {Z};
+		\node [style=node] (5) at (5, -1) {Y};
+		\node [style=node] (6) at (-7, 3) {X};
+		\node [style=node] (7) at (-5, 1) {Z};
+		\node [style=node] (8) at (-3, -1) {Y};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=edge] (4) to (3);
+		\draw [style=edge] (4) to (5);
+		\draw [style=edge] (6) to (7);
+		\draw [style=edge] (7) to (8);
+	\end{pgfonlayer}
+\end{tikzpicture}

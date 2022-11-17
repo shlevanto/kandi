@@ -54,7 +54,25 @@ Polku on \emph{sykli}, jos siinä on vähintään kolme solmua ja sen alkusolmu 
 $$
     V = \{x_0, x_1, \ldots x_k \} \qquad E = \{(x_0, x_1), (x_1,x_2),\ldots(x_{k-1}, x_k), (x_k, x_0)\}
 $$
-Graafi on \emph{syklitön}, kun se tai mikään sen solmujen ja niitä yhdistävien kaarien osajoukko ei muodosta sykliä. 
+Graafi on \emph{syklitön}, kun se tai mikään sen solmujen ja niitä yhdistävien kaarien osajoukko ei muodosta sykliä.
+
+\subsection{Graafin puuleveys}\label{puuleveys}
+Suuntaamaton graafi on \emph{puu}, kun minkä tahansa siihen kuuluvan kahden solmun välillä on täsmälleen yksi polku. Syklitön suuntaamaton graafi on täten aina puu. Suunnattu graafi on puu, jos sitä vastaava suuntaamaton graafi eli graafi, jonka kaaret on muutettu suuntaamattomiksi, on myös puu.
+
+Graafin \emph{puuleveys} \citep{robertson_graph_1984} on kokonaisluku, joka kuvaa sitä, miten kaukana graafi on puun ehtojen täyttymisestä. Mitä suurempi puuleveys on, sitä kauempana ehtojen täyttyminen on. Puuleveys määritellään graafin \emph{puuhajotelman} avulla. Graafin $G = \{ V,E \}$ puuhajotelma on puu 
+$$    
+    T = \{X, W\}, X = \{X_1, X_2, \ldots , X_n\}
+$$
+jossa solmut $X_i$ ovat graafin $G$ solmujen muodostamia joukkoja, ja joka täyttää kolme ehtoa:
+
+\begin{itemize}
+    \item Jokaiselle $X_i \in X$ pätee $X_i \subseteq V$ siten, että joukon $X$ yhdiste on $V$ \\  
+    \item Jokaisen kaaren $( u, v ) \in E$ molemmat solmut $u$ ja $v$ kuuluvat johonkin samaan joukon $X$ osajoukkoon $X_i$ \\
+    \item Jos solmujoukkojen $X_i, X_j \in X$ välillä on polku, joka kulkee solmun $X_k \in X$ kautta ja solmu $v \in V$ kuuluu sekä joukkoihin $X_i$ että $X_j$, se kuuluu myös joukkoon $X_k$
+\end{itemize}
+
+
+Puuleveys määritellään puuhajotelman suurimman osajoukon kokona vähennettynä yhdellä. Kun graafi on puu, sen puuleveys on $1$.
 
 \section{Todennäköisyyslaskennan käsitteitä}
 Todennäköisyyslaskenta on matematiikan osa-alue, joka muodostaa perustan nykyaikaiselle tilastotieteelle. Todennäköisyyslaskennan käsitteistöä ja teoriaa esittelee laajemmin mm. \citet{dasgupta_probability_2011}.
@@ -65,23 +83,27 @@ Todennäköisyyslaskenta on matematiikan osa-alue, joka muodostaa perustan nykya
 Satunnaismuuttujien \emph{yhteistodennäköisyysjakauma} $P(A_1, A_2, \ldots ,A_n)$ kuvaa kahden tai useamman muuttujan kaikkien mahdollisten lopputulosten ja niiden todennäköisyyksien joukkoa. Esimerkiksi jos heitetään noppaa kaksi kertaa, voidaan yhteistodennäköisyysjakauman $P(A_1, A_2)$ avulla selvittää todennäkäisyys saada ensimmäisellä nopanheitolla pienempi arvo kuin jälkimmäisellä. Yhteistodennäköisyysjakauman yksittäisten muuttujien jakaumia $P(A_1), P(A_2),\dots, P(A_n)$ kutsutaan \emph{reunajakaumiksi}.
 
 \subsection{Muuttujien riippumattomuus}
-Satunnaistapahtumat voivat olla keskenään \emph{riippuvia} tai \emph{riippumattomia}. Tapahtumat $A$ ja $B$ ovat riipuvia, jos ehdollisille todennäköisyyksille $P(B|A)$ ja $P(A|B)$ pätee $P(B|A) \not= P(B)$ ja $P(A|B) \not= P(A)$ eli yhden tapahtuman tulos vaikuttaa toisen tapahtuman todennäköisyyteen.
+Satunnaistapahtumat voivat olla keskenään \emph{riippuvia} tai \emph{riippumattomia}. Tapahtumat $A$ ja $B$ ovat riipuvia, jos ehdollisille todennäköisyyksille $P(B \mid A)$ ja $P(A \mid B)$ pätee $P(B \mid A) \not= P(B)$ ja $P(A \mid B) \not= P(A)$ eli yhden tapahtuman tulos vaikuttaa toisen tapahtuman todennäköisyyteen.
 
-Jos esimerkiksi  kulhossa on sama määrä mustia ja valkoisia palloja ja niistä nostetaan ilman takaisinpanoa kaksi palloa, vaikuttaa ensimmäisen nostetun pallon väri $A$ todennäköisyyteen jolla jälkimmäisen nostetun pallon väri $B$ on valkoinen tai musta, sillä kulhossa ei enää ole samaa määrää mustia ja valkoisia palloja. Jos ensimmäinen nostettu pallo pannaan takaisin kulhoon ennen jälkimmäisen pallon nostamista, ei tätä vaikutusta ole koska nyt palloja on toisen noston tapahtuessa kulhossa keskenään sama määrä. Ilman takaisinpanoa tapahtumat $A$ ja $B$ ovat riippumattomia. 
+Jos esimerkiksi  kulhossa on sama määrä mustia ja valkoisia palloja ja niistä nostetaan ilman takaisinpanoa kaksi palloa, vaikuttaa ensimmäisen nostetun pallon väri $A$ todennäköisyyteen jolla jälkimmäisen nostetun pallon väri $B$ on valkoinen tai musta, sillä kulhossa ei enää ole samaa määrää mustia ja valkoisia palloja ensimmäisen nostpn jälkeen. Jos ensimmäinen nostettu pallo pannaan takaisin kulhoon ennen jälkimmäisen pallon nostamista, ei tätä vaikutusta ole koska nyt palloja on toisen noston tapahtuessa kulhossa keskenään sama määrä. Takaisinpanolla tapahtumat $A$ ja $B$ ovat riippumattomia. 
 
 Riippumattomuuden $A \indep B$ määritelmällinen ehto on
 $$
-    P(A,B) = P(A)P(B|A) = P(A)P(B) 
+    P(A,B) = P(A)P(B \mid A) = P(A)P(B) 
 $$ 
-Vastaavasti satunnaismuuttujat $P(A = a)$ ja $P(B = b)$ ovat riippumattomia $P(A = a)  \indep P(B = b)$, jos niiden kuvaamat tapahtumat ovat riippumattomia. 
+Vastaavasti satunnaismuuttujat $P(A = a)$ ja $P(B = b)$ ovat riippumattomia 
+$$
+    P(A = a)  \indep P(B = b)
+$$
+jos niiden kuvaamat tapahtumat ovat riippumattomia. 
 
 
 \subsection{Priori- ja posterioritodennäköisyys}
 Ehdollinen todennäköisyys mahdollistaa  tapahtuman todennäköisyyden tarkastelun aiempien olosuhteiden tai tapahtumien tuloksen nojalla. Keskeinen työkalu tässä on Bayesin kaava \ref{eq:bayes}, joka kuvaa ehdollisten todennäköisyyksien suhdetta toisiinsa.
 \begin{equation}\label{eq:bayes}
-        P(A|B) = \frac{P(B|A)P(A)}{P(B)}
+        P(A \mid B) = \frac{P(B \mid A)P(A)}{P(B)}
 \end{equation}
 
-Bayesin kaavan avulla voidaan päätellä jonkin tapahtuman ehdollinen todennäköisyys, kun tiedetään että tapahtumaan vaikuttaa erinäisiä taustatekijöitä joiden todennäköisyys on tunnettu. Esim. henkilön riskissä sairastua muistisairauteen on ymmärrettävästi mielekästä ottaa huomioon hänen ikänsä.
+Bayesin kaavan avulla voidaan päätellä jonkin tapahtuman ehdollinen todennäköisyys, kun tiedetään että tapahtumaan vaikuttaa muita tapahtumia joiden todennäköisyys on tunnettu.
 
-Todennäköisyyttä $P(A|B)$ kutsutaan \emph{posterioritodennäköisyydeksi} ja todennäköisyyksiä $P(A)$ ja $P(B)$ \emph{prioritodennäköisyyksiksi}. Vastaavasti tapahtumaa $(A|B)$ kutsutaan \emph{posterioritapahtumaksi} ja tapahtumia $A$ ja $B$ \emph{prioritapahtumiksi}.
+Todennäköisyyttä $P(A \mid B)$ kutsutaan \emph{posterioritodennäköisyydeksi} ja todennäköisyyksiä $P(A)$ ja $P(B)$ \emph{prioritodennäköisyyksiksi}. Vastaavasti tapahtumaa $(A \mid B)$ kutsutaan \emph{posterioritapahtumaksi} ja tapahtumia $A$, $B$ ja $B \mid A$ \emph{prioritapahtumiksi}.
