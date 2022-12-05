@@ -1,7 +1,7 @@
 \chapter{Bayes-verkot\label{bayes}} 
 
 \section{Graafiset mallit} 
-Graafinen malli (\emph{graphical model}) yhdistelee tilastotiedettä, todennäköisyysteoriaa ja graafiteoriaa, ja kuvaa näiden avulla satunnaismuuttujia ja näiden välisiä yhteyksiä graafeina \citep{jordan_graphical_2004}. Sinällään graafisen mallin käsite ei ole kovin tarkkarajainen, vaan sillä voidaan tarkoittaa aineiston kuvaamista graafimuodossa myös ilman, että graafin muodostamiseen on käytetty laskentaa. \citet{ramsahai_connecting_2020} jaottelee graafiset mallit ilman laskentaa muodostettuihin kvalitatiivisiin malleihin, ja laskennan avulla muodostettuihin kvantitatiivisiin malleihin.  
+Graafinen malli (\texttt{graphical model}) yhdistelee tilastotiedettä, todennäköisyysteoriaa ja graafiteoriaa, ja kuvaa näiden avulla satunnaismuuttujia ja näiden välisiä yhteyksiä graafeina \citep{jordan_graphical_2004}. Sinällään graafisen mallin käsite ei ole kovin tarkkarajainen, vaan sillä voidaan tarkoittaa aineiston kuvaamista graafimuodossa myös ilman, että graafin muodostamiseen on käytetty laskentaa. \citet{ramsahai_connecting_2020} jaottelee graafiset mallit ilman laskentaa muodostettuihin kvalitatiivisiin malleihin, ja laskennan avulla muodostettuihin kvantitatiivisiin malleihin.  
 
 \citet{jordan_graphical_2004} puolestaan määrittelee probabilistisen graafisen mallin sellaiseksi, jossa graafin solmut kuvaavat satunnaismuuttujia ja kaaret näiden välisiä riippuvuuksia. Tällaista graafista mallia kutsutaan \emph{Bayes-verkoksi} (\texttt{Bayesian network}), kun mallissa käytetään suunnattua syklitöntä graafia ja vastaavasti Markov-verkoksi, kun kaaret ovat suuntaamattomia \citep{ruggeri_bayesian_2008}. Ensimmäisenä Bayes-verkkojen käyttömahdollisuuksia on esittänyt \citet{pearl_fusion_1986}. 
 
@@ -9,11 +9,11 @@ Graafinen malli (\emph{graphical model}) yhdistelee tilastotiedettä, todennäk�
 
 Bayes-verkko on \emph{suunnattu syklitön verkko} (\texttt{Directed Acyclic Graph, DAG}), joka kuvaa satunnaismuuttujien yhteistodennäköisyysjakaumaa \citep{ruggeri_bayesian_2008}. Määritelmällisesti Bayes-verkko on pari  
 $$ 
-    B = \langle G, \Theta \rangle 
+    B = \langle G, \Theta \rangle, 
 $$ 
 jossa  
 $$ 
-    G = \{V, E\}, V = \{X_1, X_2,\ldots X_n\}
+    G = \{V, E\}, V = \{X_1, X_2,\ldots X_n\},
 $$  
 eli graafin solmut kuvaavat satunnaismuuttujia ja kaarien joukko $E$ kuvaa näiden välisiä suoria riippuvuuksia. Bayes-verkossa kukin muuttuja on riippumaton kaikista niistä muuttujista, jotka eivät ole sen jälkeläisiä, kun tälle muuttujalle on määritelty verkossa sen edeltäjien muodostama joukko \citep{ruggeri_bayesian_2008}. Tämä tarkoittaa, että jos jonkin muuttujan $X_i$ edeltäjät tiedetään, tiedetään kaikki ne muuttujat joista $X_i$ on riippuva. Näin voidaan myös todeta, että muut verkon muuttujat eivät vaikuta muuttujaan $X_i$.  
 
@@ -21,7 +21,7 @@ Parametrijoukko $\Theta$ koostuu satunnaismuuttujien $X_i$ parametreista
 $$ 
     \theta_{x_i \mid \pi_i} = P_B(x_i \mid \pi_i) 
 $$  
-eli ehdollisista todennäköisyyksistä tapahtumalle $X_i = x_i$ ehtonaan muuttujan $X_i$ edeltäjien joukko verkossa $G$ \citep{ruggeri_bayesian_2008, myllymaki_bayes-verkkojen_1998}. Joukon $\Theta$ alkiot voidaan esittää \emph{ehdollisten todennäköisyyksien taulukoina} (\texttt{conditional probability table, CPT}) kaikille niille tapauksille, joita muuttujan edeltäjiensä ehdoilla voi saada \citep{zhang_brief_2019}. 
+eli ehdollisista todennäköisyyksistä tapahtumalle $X_i = x_i$ ehtonaan muuttujan $X_i$ edeltäjien joukko verkossa $G$ \citep{ruggeri_bayesian_2008, myllymaki_bayes-verkkojen_1998}. Kun kaikki muuttujat $X_i$ ovat diskreettejä, voidaan joukon $\Theta$ alkiot esittää \emph{ehdollisten todennäköisyyksien taulukoina} (\texttt{conditional probability table, CPT}) kaikille niille tapauksille, joita muuttujan edeltäjiensä ehdoilla voi saada \citep{zhang_brief_2019}. 
 
 Tarkastellaan esimerkkinä kuvassa \ref{fig:bayes-esim} esitettyä yksinkertaista Bayes-verkkoa. Kesällä on varsin suuri todennäköisyys, että henkilö on hiljattain käynyt uimassa $P(U) = 0.8$. Toiveikkaasti ajatellen todennäköisyys, että kesäpäivänä sataa on melko pieni $P(S) = 0.1$. Ajatellaan myös, että uiminen ei ole riippuvaista sateesta eli sateella on yhtä todennäköistä käydä uimassa kuin poutasäässä. 
 
@@ -81,11 +81,11 @@ Alla olevassa taulukossa \ref{table:bayes-esim} on esitetty tämän esimerkkiver
 
 Mallin esittämän yhteistodennäköisyysjakauman avulla voidaan nyt laskea todennäköisyyden esimerkiksi sille, että satunnaisena kesäpäivänä henkilöllä on märkä tukka 
 $$ 
-    P(T) = (0.1\cdot0.8) + (0.1\cdot0.2) + (0.9\cdot0.8) = 0.82 
+    P(T) = (0.1\cdot0.8) + (0.1\cdot0.2) + (0.9\cdot0.8) = 0.82. 
 $$ 
 Bayes-verkon avulla voimme nyt paitsi hahmottaa, miten eri muuttujat ovat riippuvaisia toisistaan, myös laskea Bayesin kaavaa \ref{eq:bayes} käyttäen prioritodennäköisyyksiä, kuten esimerkiksi todennäköisyyden sille, että sataa kun tiedetään että henkilön tukka on märkä. 
 $$ 
-  P(S \mid T) = \frac{P(T \mid S)P(S)}{P(T)} = \frac{1 \cdot P(0.1)}{P(0.82)} = 0.12    
+  P(S \mid T) = \frac{P(T \mid S)P(S)}{P(T)} = \frac{1 \cdot P(0.1)}{P(0.82)} = 0.12.    
 $$ 
 Bayes-verkko kuvaa siis satunnaismuuttujajoukon yhteistodennäköisyysjakaumaa ja siihen kuuluvien muuttujien välisiä riippuvuussuhteita. Se mahdollistaa näiden riippuvuuksien hahmottamisen ymmärrettävästi. Vaikka esimerkissä \ref{fig:bayes-esim} on selkeästi kyse kausaalisuhteista ja Bayes-verkossa riippuvuuksia kuvataan suunnattuina kaarina, painottavat mm. \citet{ruggeri_bayesian_2008, myllymaki_bayes-verkkojen_1998} että Bayes-verkon kaaret suuntineen eivät välttämättä kuvaa muuttujien välisiä kausaalisuhteita. Kausaalisuhteet voidaan toki määritellä asiantuntijatiedon avulla, kuten esimerkissä \ref{fig:bayes-esim} on ilmeistä. Tiedämmehän, että uiminen tai sade aiheuttaa kastumisen eikä päinvastoin. Kausaalisuhteiden päätteleminen tai oppiminen datasta on haastavaa, mutta joissain tapauksissa mahdollista ja muodostaa oman mielenkiintoisen aihekokonaisuutensa. \citet{vowels_dya_2022} tarkastelevat tuoreessa katsauksessaan tähän soveltuvia menetelmiä, mutta niiden käsitteleminen rajautuu tämän opinnäytetyön ulkopuolelle. 
 
@@ -97,9 +97,9 @@ Bayes-verkkojen käytännön sovelluksissa verkon rakenne on usein tuntematon \c
 
 Bayes-verkon \emph{kokonaisuskottavuutta} eli sopivuutta \citep{myllymaki_bayes-verkkojen_1998} tulkitaan todennäköisyyksien avulla siten, että todennäköisin malli annetulla datajoukolla on sopivin. Kokonaisuskottavuutta kuvataan ehdollisena posterioritodennäköisyytenä $P(M \mid \mathcal{D})$, missä $\mathcal{D}$ on mallin opettamiseen käytetty aineisto. Tunnetuin Bayes-verkon uskottavuutta kuvaava pisteytys on \citet{schwarz_estimating_1978} esittelemä \emph{BIC} (\texttt{Bayesian Information Criterion}) ja sitä vastaava \emph{MDL} (\texttt{Minimum Description Length}) \citep{ruggeri_bayesian_2008, liu_empirical_2012}. \citet{myllymaki_bayes-verkkojen_1998} esittävät BIC:n approksimaatioon kaavan 
 $$ 
-P(\mathcal{D} \mid M) = \frac{P(\mathcal{D}\mid M, \bar{\theta})}{N{\frac{d(M)}{2}}} 
+P(\mathcal{D} \mid M) = \frac{P(\mathcal{D}\mid M, \bar{\theta})}{N{\frac{d(M)}{2}}}, 
 $$ 
-jossa $\bar{\theta}$ kuvaa suurimman uskottavuuden parametrijoukkoa, $d(M)$ malliparametrien lukumäärä ja $N$ mallin opettamiseen käytetyn datajoukon koko. MDL puolestaan on tämän approksimaation negatiivinen logaritmi, kts. (\cite{rissanen_stochastic_1987}). 
+jossa $\bar{\theta}$ kuvaa suurimman uskottavuuden parametrijoukkoa, $d(M)$ malliparametrien lukumäärä ja $N$ mallin opettamiseen käytetyn datajoukon kokoa. MDL puolestaan on tämän approksimaation negatiivinen logaritmi, kts. \citet{rissanen_stochastic_1987}. 
 
 BIC:n ohella toinen suosittu uskottavuuden tunnusluku on \emph{BDeu} (\texttt{Bayesian Dirichlet equivalent uniform}). Lisäksi on olemassa erilaisia paikallisen rakenteen optimointiin perustuvia pisteytyksiä \citep{scanagatta_survey_2019}.   Empiirisellä datalla tehdyssä vertailussa \citet{liu_empirical_2012} ovat osoittaneet, että nimenomaan BIC ja sitä vastaava MDL antavat luotettavia tuloksia verkon rakenteen oppimisessa. 
 
@@ -141,9 +141,9 @@ Pisteyttämiseen perustuvissa algoritmeissa kokeillaan erilaisia vaihtoehtoisia 
 
 \citet{scanagatta_survey_2019} jakavat pisteyttämiseen perustuvan oppimisen kahteen vaiheeseen: \emph{edeltäjäjoukon tunnistaminen} (\texttt{parent set identification}) ja \emph{verkon rakenteen optimointi} (\texttt{structure optimization}). Edeltäjäjoukon tunnistamisessa tuotetaan lista mahdollisista edeltäjäjoukoista kullekin muuttujalle ja rakenteen optimoinnissa kullekin yksittäiselle muuttujalle valitaan se edeltäjäjoukko, joka johtaa parhaaseen pisteytykseen.  
 
-Edeltäjäjoukon tunnistamisessa naiivi ratkaisu olisi listata kaikki mahdolliset edeltäjäjoukkojen permutaatiot. Tällöin aikavaativuudeksi saadaan eksponentiaalinen $O(n^k)$, jossa $n$ on solmujen eli satunnaismuuttujien määrä ja $k$ on yläraja sille, montako vanhempaa solmulla voi olla. Nähdään, että mallin muuttujamäärän kasvaessa algoritmien aikavaativuus muodostuu ongelmalliseksi. \citet{scanagatta_survey_2019} esittelevät muutamia vaihtoehtoja, joissa muodostettavien joukkojen määrää tai niiden hakuparametreja rajoittamalla saadaan suhteellisen tehokkaita laskentamenetelmiä. Luvulle $k$ voidaan asettaa rajoite tai sitten rajoitetta voidaan kiertää esimerkiksi käyttämällä ahnetta hakumenetelmää, joka hakee aina paikallisesti parhaan ratkaisun. \citet{scanagatta_learning_2015} ovat kehittäneet menetelmän, joka perustuu verkon rakenteen ohjaamiseen kohti BIC:lle laskettua approksimaatiota $BIC^*$ ja selviytyy kirjoittajien mukaan varsin tehokkaasti jopa tuhansista muuttujista.  
+Edeltäjäjoukon tunnistamisessa naiivi ratkaisu olisi listata kaikki mahdolliset edeltäjäjoukkojen permutaatiot. Tällöin aikavaativuudeksi saadaan eksponentiaalinen $O(n^k)$, jossa $n$ on solmujen eli satunnaismuuttujien määrä ja $k$ on yläraja sille, montako vanhempaa solmulla voi olla. Nähdään, että mallin muuttujamäärän kasvaessa algoritmien aikavaativuus muodostuu ongelmalliseksi. \citet{scanagatta_survey_2019} esittelevät muutamia vaihtoehtoja, joissa muodostettavien joukkojen määrää tai niiden hakuparametreja rajoittamalla saadaan suhteellisen tehokkaita laskentamenetelmiä. Luvulle $k$ voidaan asettaa rajoite tai sitten rajoitetta voidaan kiertää esimerkiksi käyttämällä ahnetta hakumenetelmää, joka hakee aina paikallisesti parhaan ratkaisun. \citet{scanagatta_learning_2015} ovat kehittäneet menetelmän, joka perustuu verkon rakenteen ohjaamiseen kohti BIC:lle laskettua approksimaatiota $BIC^*$. Menetelmä selviytyy kirjoittajien mukaan varsin tehokkaasti jopa tuhansista muuttujista.  
 
-Pisteyttämiseen perustuvissa algoritmeissa oletetaan kuitenkin \citet{scanagatta_survey_2019} mukaan usein, että edeltäjäjoukot on jo tunnistettu ja varsinaiset oppivat algoritmit keskittyvät rakenteen optimoimiseen. Tätä ongelmaa voidaan katsauksen mukaan edelleen lähestyä kahdella eri tavalla: rajoittamalla tuloksena saatavan Bayes-verkon puuleveyttä (kts. luku \ref{puuleveys}) tai optimoimalla rakennetta yleisesti eli ilman rajoitteita tuloksena saatavalle Bayes-verkolle. Puuleveyttä rajaavat menetelmät perustuvat mm. kaarien heuristiseen lisäämiseen, dynaamiseen ohjelmointiin, kokonaislukuohjelmointiin tai puuleveydeltään $k$ olevien maksimaalisten graafien eli $k$-puiden joukosta tehtyihin otoksiin. Yleisen optimoinnin algoritmit puolestaan voivat hyödyntää dynaamista ohjelmointia, lyhimmän polun löytämisen sovelluksia tai branch and bound -menetelmiä. Parhaita tuloksia näytettäisiin saavan algoritmeilla, jotka hyödyntävät \emph{lineaarista kokonaislukuohjelmointia} (\texttt{integer linear programming, ILP}). \citet{bartlett_integer_2017} käsittelevät artikkelissaan tarkemmin  ILP:n käyttömahdollisuuksia Bayes-verkon rakenteen oppimisessa. 
+\citet{scanagatta_survey_2019} mukaan pisteyttämiseen perustuvissa algoritmeissa oletetaan usein, että edeltäjäjoukot on jo tunnistettu ja varsinaiset oppivat algoritmit keskittyvät rakenteen optimoimiseen. Tätä ongelmaa voidaan heidän mukaansa edelleen lähestyä kahdella eri tavalla: rajoittamalla tuloksena saatavan Bayes-verkon puuleveyttä (kts. luku \ref{puuleveys}) tai optimoimalla rakennetta yleisesti eli ilman rajoitteita tuloksena saatavalle Bayes-verkolle. Puuleveyttä rajaavat menetelmät perustuvat mm. kaarien heuristiseen lisäämiseen, dynaamiseen ohjelmointiin, kokonaislukuohjelmointiin tai puuleveydeltään $k$ olevien maksimaalisten graafien eli $k$-puiden joukosta tehtyihin otoksiin. Yleisen optimoinnin algoritmit puolestaan voivat hyödyntää dynaamista ohjelmointia, lyhimmän polun löytämisen sovelluksia tai branch and bound -menetelmiä. Parhaita tuloksia näytettäisiin saavan algoritmeilla, jotka hyödyntävät \emph{lineaarista kokonaislukuohjelmointia} (\texttt{integer linear programming, ILP}). \citet{bartlett_integer_2017} käsittelevät artikkelissaan tarkemmin  ILP:n käyttömahdollisuuksia Bayes-verkon rakenteen oppimisessa. 
 
 \subsection{Rajoitepohjaiset algoritmit} 
 
@@ -157,7 +157,7 @@ Rajoitepohjaisissa algoritmeissa uskottavin malli rakennetaan lisäämällä tai
 
 \subsection{Ohjelmistoja rakenteen oppimiseen} 
 
-Bayes-verkkojen käsittelemiseen ja rakenteen oppimiseen on saatavilla lukuisia ohjelmistoja. Tutustuin tätä tutkielmaa kirjoittaessani kolmeen aktiivisen kehityksen kohteena olevaan, dokumentoituun avoimen lähdekoodin lisenssillä julkaistuun ohjelmistokirjastoon. Ylivoimaisesti pisin kehityshistoria näistä on ohjelmointikieli R:lle toteutetulla \emph{bnlearn}-kirjastolla \citep{scutari_learning_2010}. Kirjaston käyttöönottoa helpottaa se, että sen tekijä on julkaissut kaksi kirjaa, joissa kuvataan Bayes-verkkojen käsittelyä juuri tällä kirjastolla, kts. \citet{nagarajan_bayesian_2013} ja \citet{R_bayesian_2014}.  
+Bayes-verkon rakenteen oppimisen algoritmit ovat varsin monimutkaisia ja hankalia totetuttaa. Käytännön sovelluksissa kannattaakin turvautua valmiisiin ohjelmistoihin, joita on lukuisia. Tutustuin tätä tutkielmaa kirjoittaessani kolmeen aktiivisen kehityksen kohteena olevaan, dokumentoituun avoimen lähdekoodin lisenssillä julkaistuun ohjelmistokirjastoon. Ylivoimaisesti pisin kehityshistoria näistä on ohjelmointikieli R:lle toteutetulla \emph{bnlearn}-kirjastolla \citep{scutari_learning_2010}. Kirjaston käyttöönottoa helpottaa se, että sen tekijä on julkaissut kaksi kirjaa, joissa kuvataan Bayes-verkkojen käsittelyä juuri tällä kirjastolla, kts. \citet{nagarajan_bayesian_2013} ja \citet{R_bayesian_2014}.  
 
 Pythonille julkaistu \emph{PyBNesian} \citep{atienza_pybnesian_2022} on lähes yhtä kattava kuin \emph{bnlearn}. Uudemmalle ja hiljalleen data-analytiikassa suosiota saavuttavalle ohjelmointikieli Julialle on puolestaan julkaistu kirjasto \citet{bayesnetsjl_2021}, joka on hieman tässä esiteltyä kahta muuta kirjastoa suppeampi ja niukemmin dokumentoitu. Yhteenveto näiden kirjastojen lisensseistä ja päivitystilanteesta tutkielman kirjoittamishetkellä on esitetty taulukossa \ref{table:softat}.   
 

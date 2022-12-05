@@ -22,19 +22,19 @@ Bayes-verkko on \emph{suunnattu syklitön verkko} (\texttt{Directed Acyclic Grap
 
 Matemaattisesti ilmaistuna graafi $G$ on pari, joka koostuu joukosta \emph{solmuja} (\texttt{node} tai \texttt{vertex}) $V$ ja joukosta niitä yhdistäviä \emph{kaaria} (\texttt{edge}) $E$. Graafia kutsutaan suunnatuksi tai suuntaamattomaksi sen mukaisesti, minkälaisia kaaria siinä on. Suunnatuilla kaarilla on erikseen määritelty lähtö- ja päätesolmu ja kaaren suuntaa merkitään nuolella. Suunnattu graafi määritellään  
 $$ 
-    G = \{V, E\}, E \subseteq \{(a,b) : a,b \in V \} 
+    G = \{V, E\}, E \subseteq \{(a,b) : a,b \in V \}, 
 $$ 
 ja suuntaamaton graafi vastaavasti 
 $$ 
-    G = \{V, E\}, E \subseteq \{\{a,b\} : a,b \in V \} 
+    G = \{V, E\}, E \subseteq \{\{a,b\} : a,b \in V \}. 
 $$ 
-Eli suunnatussa graafissa kaaret ovat järjestettyjä pareja, joita merkitään $(a,b)$ ja suuntaamattomassa järjestämättömiä pareja, joita merkitään $\{a,b\}$. 
+Suunnatussa graafissa kaaret ovat siis järjestettyjä pareja, joita merkitään $(a,b)$ ja suuntaamattomassa järjestämättömiä pareja, joita merkitään $\{a,b\}$. 
 
 Graafin solmujen $x_0, x_k$ välillä on \emph{polku}, jos solmusta $x_0$ lähteviä kaaria pitkin kulkemalla voidaan päästä solmuun $x_k$. Matemaattisesti ilmaistuna polku $P=(V,E)$ on graafi tai graafin solmujen ja niitä yhdistävien kaarten osajoukko, jossa  
 $$ 
     V = \{x_0, x_1, \ldots x_k \} \qquad E = \{(x_0, x_1), (x_1,x_2),\ldots(x_{k-1}, x_k)\} 
 $$  
-siten, että jokainen $x_i$ on erillinen solmu. Polulla järjestyksessä ensiksi olevaa solmua kutsutaan \emph{edeltäjäksi} ja seuraavaa solmua sen \emph{jälkeläiseksi}. 
+siten, että jokainen $x_i$ on erillinen solmu. Polulla järjestyksessä ensiksi olevaa solmua kutsutaan \emph{edeltäjäksi} ja seuraavia solmua sen \emph{jälkeläisiksi}. 
 
 \begin{center} 
 \centering 
@@ -62,7 +62,7 @@ Suuntaamaton graafi on \emph{puu}, kun minkä tahansa siihen kuuluvan kahden sol
 
 Graafin \emph{puuleveys} \citep{robertson_graph_1984} on kokonaisluku, joka kuvaa sitä, miten kaukana graafi on puun ehtojen täyttymisestä. Mitä suurempi puuleveys on, sitä kauempana ehtojen täyttyminen on. Puuleveys määritellään graafin \emph{puuhajotelman} avulla. Graafin $G = \{ V,E \}$ puuhajotelma on puu  
 $$     
-    T = \{X, W\}, X = \{X_1, X_2, \ldots , X_n\} 
+    T = \{X, W\}, X = \{X_1, X_2, \ldots , X_n\}, 
 $$ 
 jossa solmut $X_i$ ovat graafin $G$ solmujen muodostamia joukkoja, ja joka täyttää kolme ehtoa: 
 \begin{itemize} 
@@ -74,7 +74,7 @@ jossa solmut $X_i$ ovat graafin $G$ solmujen muodostamia joukkoja, ja joka täyt
     \item Jos solmujoukkojen $X_i, X_j \in X$ välillä on polku, joka kulkee solmun $X_k \in X$ kautta ja solmu $v \in V$ kuuluu sekä joukkoihin $X_i$ että $X_j$, se kuuluu myös joukkoon $X_k$ 
 
 \end{itemize} 
-Puuleveys määritellään puuhajotelman suurimman osajoukon kokona vähennettynä yhdellä. Kun graafi on puu, sen puuleveys on $1$. 
+Puuleveys määritellään puuhajotelman suurimman osajoukon kokona vähennettynä yhdellä. Kun graafi on puu, sen puuleveys on yksi. 
 
 \section{Todennäköisyyslaskennan käsitteitä} 
 
@@ -94,22 +94,22 @@ Jos esimerkiksi kulhossa on sama määrä mustia ja valkoisia palloja ja niistä
 
 Riippumattomuuden $A \indep B$ määritelmällinen ehto on 
 $$ 
-    P(A,B) = P(A)P(B \mid A) = P(A)P(B)  
+    P(A,B) = P(A)P(B \mid A) = P(A)P(B).  
 $$  
 Vastaavasti satunnaismuuttujat $P(A = a)$ ja $P(B = b)$ ovat riippumattomia  
 $$ 
-    P(A = a)  \indep P(B = b) 
+    P(A = a)  \indep P(B = b), 
 $$ 
 jos niiden kuvaamat tapahtumat ovat riippumattomia.  
 
 \subsection{Priori- ja posterioritodennäköisyys} 
 
-Ehdollinen todennäköisyys mahdollistaa tapahtuman todennäköisyyden tarkastelun aiempien olosuhteiden tai tapahtumien tuloksen nojalla. Keskeinen työkalu tässä on Bayesin kaava \ref{eq:bayes}, joka kuvaa ehdollisten todennäköisyyksien suhdetta toisiinsa. 
+Ehdollinen todennäköisyys mahdollistaa tapahtuman todennäköisyyden tarkastelun aiempien olosuhteiden tai tapahtumien tuloksen nojalla. Keskeinen työkalu tässä on Bayesin kaava
 
 \begin{equation}\label{eq:bayes} 
-        P(A \mid B) = \frac{P(B \mid A)P(A)}{P(B)} 
+        P(A \mid B) = \frac{P(B \mid A)P(A)}{P(B)}, 
 \end{equation} 
 
-Bayesin kaavan avulla voidaan päätellä jonkin tapahtuman ehdollinen todennäköisyys, kun tiedetään että tapahtumaan vaikuttaa muita tapahtumia joiden todennäköisyys on tunnettu. 
+joka kuvaa ehdollisten todennäköisyyksien suhdetta toisiinsa. Bayesin kaavan avulla voidaan päätellä jonkin tapahtuman ehdollinen todennäköisyys, kun tiedetään että tapahtumaan vaikuttaa muita tapahtumia joiden todennäköisyys on tunnettu. 
 
 Todennäköisyyttä $P(A \mid B)$ kutsutaan \emph{posterioritodennäköisyydeksi} ja todennäköisyyksiä $P(A)$ ja $P(B)$ \emph{prioritodennäköisyyksiksi}. Vastaavasti tapahtumaa $(A \mid B)$ kutsutaan \emph{posterioritapahtumaksi} ja tapahtumia $A$, $B$ ja $B \mid A$ \emph{prioritapahtumiksi}. 
